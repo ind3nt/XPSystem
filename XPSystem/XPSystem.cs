@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using XPSystem.Configs;
 using XPSystem.Events;
 
 namespace XPSystem
@@ -93,43 +92,43 @@ namespace XPSystem
             switch (Level)
             {
                 case 1:
-                    player.RankName = Usergroups.Level_1.BadgeText;
+                    player.RankName = Plugin.Instance.Config.Level1Name;
                     break;
 
                 case 2:
-                    player.RankName = Usergroups.Level_2.BadgeText;
+                    player.RankName = Plugin.Instance.Config.Level2Name;
                     break;
 
                 case 3:
-                    player.RankName = Usergroups.Level_3.BadgeText;
+                    player.RankName = Plugin.Instance.Config.Level3Name;
                     break;
 
                 case 4:
-                    player.RankName = Usergroups.Level_4.BadgeText;
+                    player.RankName = Plugin.Instance.Config.Level4Name;
                     break;
 
                 case 5:
-                    player.RankName = Usergroups.Level_5.BadgeText;
+                    player.RankName = Plugin.Instance.Config.Level5Name;
                     break;
 
                 case 6:
-                    player.RankName = Usergroups.Level_6.BadgeText;
+                    player.RankName = Plugin.Instance.Config.Level6Name;
                     break;
 
                 case 7:
-                    player.RankName = Usergroups.Level_7.BadgeText;
+                    player.RankName = Plugin.Instance.Config.Level7Name;
                     break;
 
                 case 8:
-                    player.RankName = Usergroups.Level_8.BadgeText;
+                    player.RankName = Plugin.Instance.Config.Level8Name;
                     break;
 
                 case 9:
-                    player.RankName = Usergroups.Level_9.BadgeText;
+                    player.RankName = Plugin.Instance.Config.Level9Name;
                     break;
 
                 case 10:
-                    player.RankName = Usergroups.Level_10.BadgeText;
+                    player.RankName = Plugin.Instance.Config.Level10Name;
                     break;
             }
         }
