@@ -5,7 +5,6 @@ namespace XPSystem
 {
     public class XPSystem
     {
-        public Player player;
 
         public static void AddXP(Exiled.API.Features.Player Player, int xp)
         {
@@ -26,7 +25,6 @@ namespace XPSystem
 
             InitDB.DeleteFromDB(Player.RawUserId);
             InitDB.SaveToDB(newData);
-
         }
 
         public static void LvlUp(Exiled.API.Features.Player Player)
@@ -42,7 +40,7 @@ namespace XPSystem
             AddToScoreboard(Player, newData.Level);
         }
 
-        public static void SetLvl (Exiled.API.Features.Player Player, int Level)
+        public static void SetLvl(Exiled.API.Features.Player Player, int Level)
         {
             var player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
 
