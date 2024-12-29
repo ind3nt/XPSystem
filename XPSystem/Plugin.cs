@@ -6,6 +6,8 @@ namespace XPSystem
 {
     public class Plugin : Plugin<Config>
     {
+        public static Plugin Instance { get; set; }
+
         public override string Author => "sky3z";
 
         public override string Name => "XPSystem";
@@ -13,8 +15,6 @@ namespace XPSystem
         public override string Prefix => "XPSystem";
 
         public override Version Version => base.Version;
-
-        public static Plugin Instance;
 
         public override void OnEnabled()
         {

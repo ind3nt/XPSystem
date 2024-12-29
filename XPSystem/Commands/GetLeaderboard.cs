@@ -22,11 +22,11 @@ namespace XPSystem.Commands
             int i = 0;
             string message = null;
 
-            var AllPlayers = InitDB.ReadAllFromDB();
+            var allPlayers = InitDB.ReadAllFromDB();
 
-            Exiled.API.Features.Player player = Exiled.API.Features.Player.Get(sender);
+            var player = Exiled.API.Features.Player.Get(sender);
 
-            IEnumerable<Player> leaderboard = AllPlayers.OrderByDescending(x => x.Level);
+            IEnumerable<Player> leaderboard = allPlayers.OrderByDescending(x => x.Level);
 
             foreach (Player item in leaderboard)
             {
@@ -36,6 +36,7 @@ namespace XPSystem.Commands
                 if (i == 10)
                     continue;
             }
+
             response = message;
             return true;
         }

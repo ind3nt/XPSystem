@@ -9,7 +9,8 @@ namespace XPSystem.Events
         public static void OnPlayerVerifed(VerifiedEventArgs ev)
         {
             string SteamID = ev.Player.RawUserId;
-            var player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == SteamID);
+            
+            Player player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == SteamID);
 
             if (player == null)
             {

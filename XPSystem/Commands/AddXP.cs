@@ -25,17 +25,29 @@ namespace XPSystem.Commands
             int.TryParse(arguments.First(), out var playerId);
             int.TryParse(arguments.ElementAt(1), out int XP);
 
-            var player = Player.List.FirstOrDefault(p => p.Id == playerId);
+            if (playerId == 1 || playerId == 0)
+            {
+                response = $"Введите кооректный ID!";
+                return false;
+            }
 
-            if (player is null)
+            if ( XP <= 0 )
+            {
+                response = $"Введите корректное количество опыта!";
+                return false;
+            }
+
+            var target = Player.List.FirstOrDefault(player => player.Id == playerId);
+
+            if (target is null)
             {
                 response = $"Игрок с id {playerId} не найден";
                 return false;
             }
 
-            XPSystem.AddXP(player, XP);
+            XPSystem.AddXP(target, XP);
 
-            response = $"Вы добавили игроку {player.Nickname} - {XP} единиц опыта!";
+            response = $"Вы добавили игроку {target.Nickname} - {XP} единиц опыта!";
             return true;
         }
     }

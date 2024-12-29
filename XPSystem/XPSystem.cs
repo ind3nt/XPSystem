@@ -1,19 +1,19 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using XPSystem.Events;
 
 namespace XPSystem
 {
-    public class XPSystem
+    class XPSystem
     {
-
         public static void AddXP(Exiled.API.Features.Player Player, int xp)
         {
-            var player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
+            Player player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
 
             if (player == null)
                 return;
 
-            if (player.XP + xp >= (Plugin.Instance.Config.XpToLvlUp * player.Level))
+            if (CheckLvlUp(player.XP, xp, player.Level))
             {
                 LvlUp(Player);
                 return;
@@ -29,7 +29,10 @@ namespace XPSystem
 
         public static void LvlUp(Exiled.API.Features.Player Player)
         {
-            var player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
+            Player player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
+
+            if (player.Level == Plugin.Instance.Config.LevelNames.Count())
+                return;
 
             Player newData = new Player(Player.RawUserId, player.Level + 1, 0, Player.Nickname);
 
@@ -42,7 +45,7 @@ namespace XPSystem
 
         public static void SetLvl(Exiled.API.Features.Player Player, int Level)
         {
-            var player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
+            Player player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
 
             if (player == null)
                 return;
@@ -59,7 +62,7 @@ namespace XPSystem
 
         public static void RemoveXP(Exiled.API.Features.Player Player, int XP)
         {
-            var player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
+            Player player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
 
             if (player == null)
                 return;
@@ -77,7 +80,7 @@ namespace XPSystem
 
         public static string GetXP(Exiled.API.Features.Player Player)
         {
-            var player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
+            Player player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
 
             if (player == null)
                 return null;
@@ -85,49 +88,19 @@ namespace XPSystem
             return $"{player.XP} / {(Plugin.Instance.Config.XpToLvlUp * player.Level)}";
         }
 
+        public static bool CheckLvlUp(int curXP, int newXP, int Level)
+        {
+            if ((curXP + newXP) >= (Plugin.Instance.Config.XpToLvlUp * Level))
+                return true;
+
+            return false;
+        }
+
         public static void AddToScoreboard(Exiled.API.Features.Player player, int Level)
         {
-            switch (Level)
+            if (Plugin.Instance.Config.LevelNames.ContainsKey(Level.ToString()))
             {
-                case 1:
-                    player.RankName = Plugin.Instance.Config.Level1Name;
-                    break;
-
-                case 2:
-                    player.RankName = Plugin.Instance.Config.Level2Name;
-                    break;
-
-                case 3:
-                    player.RankName = Plugin.Instance.Config.Level3Name;
-                    break;
-
-                case 4:
-                    player.RankName = Plugin.Instance.Config.Level4Name;
-                    break;
-
-                case 5:
-                    player.RankName = Plugin.Instance.Config.Level5Name;
-                    break;
-
-                case 6:
-                    player.RankName = Plugin.Instance.Config.Level6Name;
-                    break;
-
-                case 7:
-                    player.RankName = Plugin.Instance.Config.Level7Name;
-                    break;
-
-                case 8:
-                    player.RankName = Plugin.Instance.Config.Level8Name;
-                    break;
-
-                case 9:
-                    player.RankName = Plugin.Instance.Config.Level9Name;
-                    break;
-
-                case 10:
-                    player.RankName = Plugin.Instance.Config.Level10Name;
-                    break;
+                player.RankName = Plugin.Instance.Config.LevelNames[Level.ToString()];
             }
         }
     }

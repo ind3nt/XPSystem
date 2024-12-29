@@ -1,4 +1,5 @@
-﻿using Exiled.API.Interfaces;
+﻿using System.Collections.Generic;
+using Exiled.API.Interfaces;
 
 namespace XPSystem
 {
@@ -8,25 +9,19 @@ namespace XPSystem
 
         public bool Debug { get; set; } = false;
 
-        public string Level1Name { get; set; } = "LVL 1 | Лох";
-
-        public string Level2Name { get; set; } = "LVL 2 | Не лох";
-
-        public string Level3Name { get; set; } = "LVL 3 | Что то знает";
-
-        public string Level4Name { get; set; } = "LVL 4 | Знает чуть больше";
-
-        public string Level5Name { get; set; } = "LVL 5 | Сигма";
-
-        public string Level6Name { get; set; } = "LVL 6 | Пикми";
-
-        public string Level7Name { get; set; } = "LVL 7 | Фимоз";
-
-        public string Level8Name { get; set; } = "LVL 8 | Сосал";
-
-        public string Level9Name { get; set; } = "LVL 9 | Художник";
-
-        public string Level10Name { get; set; } = "LVL 10 | Босс художки";
+        public Dictionary<string, string> LevelNames { get; set; } = new Dictionary<string, string>()
+        {
+            { "1", "LVL 1 | Лох" },
+            { "2", "LVL 2 | Не лох" },
+            { "3", "LVL 2 | Что-то знает" },
+            { "4", "LVL 4 | Знает чуть больше" },
+            { "5", "LVL 5 | Сигма" },
+            { "6", "LVL 6 | Пикми" },
+            { "7", "LVL 7 | Фимоз" },
+            { "8", "LVL 8 | Сосал" },
+            { "9", "LVL 9 | Художник" },
+            { "10", "LVL 10 | Босс художки" },
+        };
 
         public int XpToLvlUp { get; set; } = 1000;
 

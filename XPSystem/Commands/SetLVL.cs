@@ -25,17 +25,29 @@ namespace XPSystem.Commands
             int.TryParse(arguments.First(), out var playerId);
             int.TryParse(arguments.ElementAt(1), out int Level);
 
-            var player = Player.List.FirstOrDefault(p => p.Id == playerId);
+            if (Level > Plugin.Instance.Config.LevelNames.Count() || Level <= 0)
+            {
+                response = "Введите корректный уровень!";
+                return false;
+            }
 
-            if (player is null)
+            if (playerId == 1 || playerId == 0)
+            {
+                response = $"Введите кооректный ID!";
+                return false;
+            }
+
+            var target = Player.List.FirstOrDefault(player => player.Id == playerId);
+
+            if (target is null)
             {
                 response = $"Игрок с id {playerId} не найден";
                 return false;
             }
 
-            XPSystem.SetLvl(player, Level);
+            XPSystem.SetLvl(target, Level);
 
-            response = $"Вы установили игроку {player.Nickname} - {Level} Уровень!";
+            response = $"Вы установили игроку {target.Nickname} - {Level} Уровень!";
             return true;
         }
     }
