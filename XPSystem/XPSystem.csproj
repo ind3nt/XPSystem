@@ -96,11 +96,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\GetLeaderboard.cs" />
+    <Compile Include="Commands\GetMyXP.cs" />
     <Compile Include="Commands\RemoveXP.cs" />
     <Compile Include="Commands\SetLVL.cs" />
     <Compile Include="Commands\AddXP.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="Configs\Usergroups.cs" />
     <Compile Include="Events\InitDB.cs" />
     <Compile Include="Events\KillEvents.cs" />
     <Compile Include="Events\PlayerJoin.cs" />

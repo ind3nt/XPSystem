@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using XPSystem.Configs;
 using XPSystem.Events;
 
@@ -11,10 +7,6 @@ namespace XPSystem
     public class XPSystem
     {
         public Player player;
-
-        public InitDB InitDB = Plugin.InitDB;
-        
-        public Usergroups Usergroups = Plugin.Usergroups;
 
         public static void AddXP(Exiled.API.Features.Player Player, int xp)
         {
@@ -31,7 +23,7 @@ namespace XPSystem
 
             int newXP = player.XP + xp;
 
-            Player newData = new Player(Player.RawUserId, player.Level, newXP);
+            Player newData = new Player(Player.RawUserId, player.Level, newXP, player.NickName);
 
             InitDB.DeleteFromDB(Player.RawUserId);
             InitDB.SaveToDB(newData);
@@ -42,12 +34,12 @@ namespace XPSystem
         {
             var player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
 
-            Player newData = new Player(Player.RawUserId, player.Level + 1, 0);
+            Player newData = new Player(Player.RawUserId, player.Level + 1, 0, Player.Nickname);
 
             InitDB.DeleteFromDB(Player.RawUserId);
             InitDB.SaveToDB(newData);
 
-            Player.Broadcast(5, $"Ваш новый уровень: {newData.Level}!");
+            Player.Broadcast(2, $"Ваш новый уровень: {newData.Level}!", Broadcast.BroadcastFlags.Normal, true);
             AddToScoreboard(Player, newData.Level);
         }
 
@@ -58,7 +50,7 @@ namespace XPSystem
             if (player == null)
                 return;
 
-            Player newData = new Player(Player.RawUserId, Level, 0);
+            Player newData = new Player(Player.RawUserId, Level, 0, Player.Nickname);
 
             InitDB.DeleteFromDB(Player.RawUserId);
             InitDB.SaveToDB(newData);
@@ -78,12 +70,22 @@ namespace XPSystem
             if (XP > player.XP)
                 XP = player.XP;
 
-            Player newData = new Player(Player.RawUserId, player.Level, player.XP - XP);
+            Player newData = new Player(Player.RawUserId, player.Level, player.XP - XP, player.NickName);
 
             InitDB.DeleteFromDB(Player.RawUserId);
             InitDB.SaveToDB(newData);
 
             return;
+        }
+
+        public static string GetXP(Exiled.API.Features.Player Player)
+        {
+            var player = InitDB.ReadAllFromDB().FirstOrDefault(p => p.SteamId == Player.RawUserId);
+
+            if (player == null)
+                return null;
+
+            return $"{player.XP} / {(Plugin.Instance.Config.XpToLvlUp * player.Level)}";
         }
 
         public static void AddToScoreboard(Exiled.API.Features.Player player, int Level)

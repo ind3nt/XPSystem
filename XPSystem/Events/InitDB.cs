@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exiled.API.Features;
 using Newtonsoft.Json;
 
 namespace XPSystem.Events
@@ -74,12 +70,14 @@ namespace XPSystem.Events
 
         public int XP { get; set; }
 
-        public Player(string SteamID, int Level, int XP) 
+        public string NickName { get; set; }
+
+        public Player(string SteamID, int Level, int XP, string NickName) 
         {
             this.SteamId = SteamID;
             this.Level = Level;
             this.XP = XP;
+            this.NickName = NickName;
         }
-
     }
 }

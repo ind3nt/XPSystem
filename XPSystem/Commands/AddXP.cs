@@ -8,7 +8,7 @@ namespace XPSystem.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class AddXPCommand : ICommand
     {
-        public string Command => "addxp";
+        public string Command => "addxpp";
 
         public string[] Aliases { get; } = { };
 
